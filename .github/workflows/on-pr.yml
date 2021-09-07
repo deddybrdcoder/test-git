@@ -5,7 +5,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test1:
+  my-job:
+    runs-on: ubuntu-latest
     steps:
-    - name: test on pr
-      run: echo "Test on pr"
+    - name: my-step
+      run: echo "Hello On PR"
