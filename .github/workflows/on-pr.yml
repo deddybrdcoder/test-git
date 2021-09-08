@@ -8,5 +8,7 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-    - name: my-step
-      run: echo "Hello On PR"
+      - name: my-step-1
+        run: echo "Hello On PR - 1"
+      - name: my-step-2
+        run: echo "Hello On PR - 2"

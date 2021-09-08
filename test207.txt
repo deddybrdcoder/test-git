@@ -1,1 +1,6 @@
 test207
+
+
+git rebase --abort
+git pull --rebase
+git rebase -i HEAD~2
