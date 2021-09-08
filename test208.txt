@@ -1,2 +1,3 @@
 step by step 
 tambah branches main in merge
+add on release
