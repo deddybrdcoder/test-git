@@ -5,10 +5,18 @@ on:
     types: [ closed ]
 
 jobs:
-  my-job:
+  Docker-Build-Push:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step-1
-        run: echo "Hello On Merge - 1"
-      - name: my-step-2
-        run: echo "Hello On Merge - 2"
+      - name: 1-build-image-docker
+        run: echo "Build image Docker"
+      - name: 2-login-to-Docker-Registry
+        run: echo "login to Docker Registry"
+      - name: 3-push-Docker-image
+        run: echo "push docker image"
+
+  Deploy-to-Service-DS-Staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1-deploy-to-docker-swarm-staging
+        run: echo "deploy..."

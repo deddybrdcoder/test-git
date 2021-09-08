@@ -5,10 +5,10 @@ on:
     branches: [ main ]
 
 jobs:
-  my-job:
+  Build-image-Docker:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step-1
-        run: echo "Hello On PR - 1"
-      - name: my-step-2
-        run: echo "Hello On PR - 2"
+      - name: build-image-docker
+        run: echo "Build..."
+      - name: Testing-Docker-image
+        run: echo "Testing"
