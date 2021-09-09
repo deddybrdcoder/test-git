@@ -6,13 +6,6 @@ on:
     types: [ published ]
 
 jobs:
-  Docker-build-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: build-image-docker
-        run: echo "Build...."
-      - name: push-image-docker
-        run: echo "Push...."
   Deploy-to-Prod:
     runs-on: ubuntu-latest
     steps:

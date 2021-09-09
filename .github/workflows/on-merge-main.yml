@@ -1,0 +1,33 @@
+name: On PR Merge to Main
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ closed ]
+
+env:
+  BASE_IMAGE_NAME: rust-demo-app:v0.1
+
+jobs:
+  build-docker:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Build & Push
+        run: |
+          # login to Github Docker Registry
+          echo "${{ secrets.U360_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+          IMAGE_TAG=ghcr.io/${{ github.repository }}/$BASE_IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_TAG=$(echo $IMAGE_TAG | tr '[A-Z]' '[a-z]')
+
+          echo IMAGE_TAG=$IMAGE_TAG
+
+          #Build then Push
+          docker build -t $IMAGE_TAG -f Dockerfile .
+          docker push $IMAGE_TAG
