@@ -19,7 +19,7 @@ jobs:
           # login to Github Docker Registry
           echo "${{ secrets.DEDI_TOKEN }}" | docker login -u ${{ secrets.USER_DH }} --password-stdin
 
-          IMAGE_TAG=brdcookies6969/test-git/$BASE_IMAGE_NAME
+          IMAGE_TAG=brdcookies6969/$BASE_IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_TAG=$(echo $IMAGE_TAG | tr '[A-Z]' '[a-z]')
