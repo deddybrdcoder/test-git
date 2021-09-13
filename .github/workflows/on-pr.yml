@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build The Docker image
-        #run: docker build -f Dockerfile -t test-build/training-git:pr .
+        run: docker build -f Dockerfile -t brdcookies6969/test-git:pr .
