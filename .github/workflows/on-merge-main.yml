@@ -6,7 +6,7 @@ on:
     types: [ closed ]
 
 env:
-  BASE_IMAGE_NAME: test-git:v0.1
+  BASE_IMAGE_NAME: test-git
 
 jobs:
   build-docker:
