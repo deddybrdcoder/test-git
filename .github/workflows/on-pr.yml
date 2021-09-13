@@ -5,10 +5,9 @@ on:
     branches: [ main ]
 
 jobs:
-  Build-image-Docker:
+  build-docker:
     runs-on: ubuntu-latest
     steps:
-      - name: build-image-docker
-        run: echo "Build..."
-      - name: Testing-Docker-image
-        run: echo "Testing"
+      - uses: actions/checkout@v2
+      - name: Build The Docker image
+        #run: docker build -f Dockerfile -t test-build/training-git:pr .
