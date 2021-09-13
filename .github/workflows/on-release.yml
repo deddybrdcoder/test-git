@@ -4,10 +4,36 @@ on:
   release:
     branches: [ main ]
     types: [ published ]
+env:
+  BASE_IMAGE_NAME: test-git
 
 jobs:
-  Deploy-to-Prod:
+  docker-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy-to-Prod
-        run: echo "Deploy...."
+    - uses: actions/checkout@v2
+    - name: Build & Push
+      run: |
+        # Copy the binary to docker image
+        docker build -f Dockerfile -t $BASE_IMAGE_NAME .
+ 
+        # Login to Github docker registry
+        echo "${{ secrets.DEDI_TOKEN }}" | docker login -u ${{ secrets.USER_DH }} --password-stdin
+ 
+        # Compose proper Image ID
+        IMAGE_ID=brdcookies6969/$BASE_IMAGE_NAME
+ 
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+ 
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+ 
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+ 
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+ 
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
