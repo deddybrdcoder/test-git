@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     types: [ published ]
 env:
-  BASE_IMAGE_NAME: test-git
+  IMAGE_NAME: test-git
 
 jobs:
   docker-publish:
@@ -15,13 +15,13 @@ jobs:
     - name: Build & Push
       run: |
         # Copy the binary to docker image
-        docker build -f Dockerfile -t $BASE_IMAGE_NAME .
+        docker build -f Dockerfile -t $IMAGE_NAME .
  
         # Login to Github docker registry
         echo "${{ secrets.DEDI_TOKEN }}" | docker login -u ${{ secrets.USER_DH }} --password-stdin
  
         # Compose proper Image ID
-        IMAGE_ID=brdcookies6969/$BASE_IMAGE_NAME
+        IMAGE_ID=brdcookies6969/$IMAGE_NAME
  
         # Change all uppercase to lowercase
         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -37,3 +37,5 @@ jobs:
  
         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
+        docker tag $IMAGE_NAME $IMAGE_ID:latest
+        docker push $IMAGE_ID:latest
